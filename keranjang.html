@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keranjang Belanja - Toko Pakaian</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* === KHUSUS KERANJANG CSS === */
+        /* Desain ini tetap di sini agar tata letak keranjang tidak berantakan */
+        .cart-container { background-color: #ffffff; border-radius: 8px; padding: 30px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); min-height: 50vh; }
+        .cart-header { font-size: 20px; font-weight: 700; color: #000; margin-bottom: 15px; }
+        .select-all-container { border-bottom: 1px solid #eaeaea; padding-bottom: 15px; margin-bottom: 25px; }
+        
+        .teal-chk { appearance: none; -webkit-appearance: none; width: 24px; height: 24px; border: 2px solid #4db6ac; border-radius: 4px; background-color: #fff; cursor: pointer; position: relative; vertical-align: middle; margin-right: 10px; flex-shrink: 0; transition: all 0.2s; }
+        .teal-chk:checked { background-color: #4db6ac; border-color: #4db6ac; }
+        .teal-chk:checked::after { content: '\f00c'; font-family: "Font Awesome 6 Free"; font-weight: 900; color: white; font-size: 14px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+        .chk-label { font-size: 16px; color: #000; cursor: pointer; vertical-align: middle; }
+
+        .btn-cari-produk { background-color: #000000; color: #ffffff; font-weight: 700; font-size: 14px; padding: 12px 40px; border: none; border-radius: 4px; letter-spacing: 0.5px; transition: all 0.3s ease; text-decoration: none; display: inline-block; }
+        .btn-cari-produk:hover { background-color: #333333; color: #ffffff; }
+
+        .filled-cart-container { background-color: #ffffff; border-radius: 8px; padding: 30px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .cart-item { display: flex; align-items: stretch; padding: 20px 0; border-bottom: 1px solid #eee; }
+        .cart-item-img { width: 100px; height: 100px; object-fit: cover; border-radius: 4px; margin-right: 15px; background-color: #f8f9fa; }
+        .cart-item-details { flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
+        .item-name { font-size: 16px; font-weight: bold; color: #000; margin-bottom: 8px; }
+        .item-variant { font-size: 14px; color: #000; margin-bottom: 4px; }
+        /* color-dot sudah tidak dipakai tapi dibiarkan saja tidak masalah */
+        .color-dot { display: inline-block; width: 14px; height: 14px; border-radius: 50%; border: 1px solid #ccc; vertical-align: middle; margin: 0 4px; }
+        .item-price { font-size: 18px; font-weight: bold; color: #000; margin-top: 5px; }
+        .cart-item-bottom { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 15px; }
+        .action-icons i { font-size: 20px; color: #333; cursor: pointer; margin-left: 15px; transition: color 0.2s;}
+        .action-icons i:hover { color: #e74c3c; }
+
+        .summary-box { background-color: #fff; border-radius: 8px; padding: 25px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); border: 1px solid #eaeaea; }
+        .btn-checkout { background-color: #e74c3c; color: #fff; font-weight: bold; padding: 12px; border-radius: 6px; border: none; width: 100%; transition: background 0.3s; }
+        .btn-checkout:hover { background-color: #c0392b; color: white;}
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR SEDERHANA -->
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark fixed-top py-3">
+        <div class="container">
+            <a href="index.html" class="navbar-brand">Naoyann Joy's</a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navmenu">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a href="index.html" class="nav-link">Product</a></li>
+                    <li class="nav-item"><a href="tentang.html" class="nav-link">Tentang Kami</a></li>
+                    <li class="nav-item"><a href="kontak.html" class="nav-link">Contact</a></li>
+                    <li class="nav-item"><a href="keranjang.html" class="nav-link">Keranjang Belanja (<span id="cart-nav-count">0</span>)</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- KONTEN KERANJANG -->
+    <main class="container mt-5 pt-5 mb-5">
+        <div id="cart-root"></div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="tentang.html">Tentang Kami</a>
+                <span>|</span>
+                <a href="index.html">Product</a>
+                <span>|</span>
+                <a href="kontak.html">Contact</a>
+                <span>|</span>
+                <a href="syarat.html">Syarat dan Ketentuan</a>
+                <span>|</span>
+                <a href="socialmedia.html">Social Media</a>
+            </div>
+
+            <div class="footer-text-block">
+                Hubungi Kami Untuk Layanan Pengaduan Konsumen Naoyann Joy's Indonesia:<br>
+                (001) 80123456789 dan customersupport@Naoyann Joy's.co.id
+            </div>
+            <div class="footer-text-block">
+                Layanan Pengaduan Konsumen, Direktorat Jendral Perlindungan Konsumen dan Tertib Niaga, Kementrian Perdagangan Republik Indonesia:<br>
+                0853 111 1010 (WhatsApp)
+            </div>
+            <div class="footer-text-block">
+                Pelaporan Rekan Bisnis terhadap dugaan pelanggaran oleh karyawan Naoyann Joy's Indonesia: frid.whistleblowing@Naoyann Joy's.co.id
+            </div>
+            <div class="footer-text-block" style="margin-top: 20px;">
+                <a href="#" style="color: #333; text-decoration: none;">Pengaturan Cookie</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SCRIPT BOOTSTRAP & LOGIKA KERANJANG -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
+
+    <script>
+        function renderCartPage() {
+            const cartRoot = document.getElementById('cart-root');
+            let cart = [];
+            
+            try { cart = JSON.parse(localStorage.getItem('naoyann_cart')) || []; } catch (e) { cart = []; }
+            
+            // 1. JIKA KERANJANG KOSONG
+            if (cart.length === 0) {
+                cartRoot.innerHTML = `
+                    <div class="cart-container mt-3">
+                        <div class="cart-header">Tas Belanja</div>
+                        <div class="select-all-container d-flex align-items-center">
+                            <input type="checkbox" class="teal-chk" disabled>
+                            <label class="chk-label text-muted">Pilih Semua</label>
+                        </div>
+                        <div class="text-center py-5 mt-4 mb-4">
+                            <h4 class="empty-cart-title">Yah, keranjang belanja Anda kosong...</h4>
+                            <p class="empty-cart-subtitle">Yuk mulai belanja</p>
+                            <a href="index.html" class="btn-cari-produk">CARI PRODUK</a>
+                        </div>
+                    </div>
+                `;
+                document.getElementById('cart-nav-count').innerText = "0";
+                return;
+            }
+
+            // 2. JIKA KERANJANG TERISI
+            let totalQty = 0;
+            let totalPrice = 0;
+            let allChecked = true;
+            let itemsHtml = '';
+
+            cart.forEach((item, index) => {
+                totalQty += item.qty;
+                if (item.selected) { totalPrice += (item.price * item.qty); } else { allChecked = false; }
+
+                let formattedPrice = item.price.toLocaleString('id-ID').replace(/\./g, ',');
+
+                // DI SINI SAYA HAPUS BAGIAN WARNANYA
+                itemsHtml += `
+                    <div class="cart-item">
+                        <input type="checkbox" class="teal-chk" style="margin-top: 35px;" ${item.selected ? 'checked' : ''} onchange="toggleSelect(${index}, this.checked)">
+                        <img src="${item.image}" class="cart-item-img" onerror="this.onerror=null; this.src='https://via.placeholder.com/100';">
+                        
+                        <div class="cart-item-details">
+                            <div>
+                                <div class="item-name">${item.name}</div>
+                                <div class="item-variant">Ukuran : ${item.size}</div>
+                                <div class="item-price">${formattedPrice}</div>
+                            </div>
+                            
+                            <div class="cart-item-bottom">
+                                <div class="item-qty-text">QTY : ${item.qty}</div>
+                                <div class="action-icons">
+                                    <i class="fas fa-pencil-alt" title="Edit"></i>
+                                    <i class="fas fa-trash-alt" title="Hapus" onclick="removeItem(${index})"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            // Layout
+            cartRoot.innerHTML = `
+                <div class="row g-4 mt-2">
+                    <div class="col-lg-8 col-12">
+                        <div class="filled-cart-container">
+                            <div class="cart-title">Tas Belanja (${totalQty})</div>
+                            <div class="d-flex align-items-center border-bottom pb-3">
+                                <input type="checkbox" id="check-all" class="teal-chk" ${allChecked ? 'checked' : ''} onchange="toggleAll(this.checked)">
+                                <label for="check-all" class="chk-label">Pilih Semua</label>
+                            </div>
+                            <div class="item-list-wrapper">${itemsHtml}</div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-12">
+                        <div class="summary-box">
+                            <h5 class="fw-bold mb-4">Ringkasan Belanja</h5>
+                            <div class="d-flex justify-content-between mb-3">
+                                <span>Total Harga</span>
+                                <span class="fw-bold">Rp ${totalPrice.toLocaleString('id-ID')}</span>
+                            </div>
+                            <hr>
+                            <div class="d-flex justify-content-between mb-4">
+                                <span class="fw-bold text-dark fs-5">Total Tagihan</span>
+                                <span class="fw-bold text-danger fs-5">Rp ${totalPrice.toLocaleString('id-ID')}</span>
+                            </div>
+                            <button class="btn btn-checkout" onclick="checkout()">Beli (${totalQty})</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.getElementById('cart-nav-count').innerText = cart.length;
+        }
+
+        function toggleSelect(index, isChecked) {
+            let cart = JSON.parse(localStorage.getItem('naoyann_cart')) || [];
+            cart[index].selected = isChecked;
+            localStorage.setItem('naoyann_cart', JSON.stringify(cart));
+            renderCartPage();
+        }
+
+        function toggleAll(isChecked) {
+            let cart = JSON.parse(localStorage.getItem('naoyann_cart')) || [];
+            cart.forEach(item => item.selected = isChecked);
+            localStorage.setItem('naoyann_cart', JSON.stringify(cart));
+            renderCartPage();
+        }
+
+        function removeItem(index) {
+            let cart = JSON.parse(localStorage.getItem('naoyann_cart')) || [];
+            cart.splice(index, 1);
+            localStorage.setItem('naoyann_cart', JSON.stringify(cart));
+            renderCartPage();
+        }
+
+        function checkout() {
+            let cart = JSON.parse(localStorage.getItem('naoyann_cart')) || [];
+            let selectedItems = cart.filter(item => item.selected);
+            
+            if(selectedItems.length === 0) {
+                alert("Silakan centang minimal 1 barang yang ingin dibeli terlebih dahulu.");
+            } else {
+                alert("Berhasil! Mengarahkan ke halaman pembayaran...");
+            }
+        }
+
+        // Load saat pertama kali
+        renderCartPage();
+    </script>
+</body>
+</html>
