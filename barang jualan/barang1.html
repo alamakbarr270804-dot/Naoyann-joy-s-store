@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Produk - Naoyann Joy's</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Memanggil CSS di folder luar -->
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark fixed-top py-3">
+        <div class="container">
+            <a href="../index.html" class="navbar-brand">Naoyann Joy's</a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navmenu">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">Product</a></li>
+                    <li class="nav-item"><a href="../tentang.html" class="nav-link">Tentang Kami</a></li>
+                    <li class="nav-item"><a href="../kontak.html" class="nav-link">Contact</a></li>
+                    <!-- Link langsung ke keranjang.html (Tanpa atribut offcanvas) -->
+                    <li class="nav-item">
+                        <a href="../keranjang.html" class="nav-link">Keranjang Belanja (<span id="cart-nav-count">0</span>)</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mt-5 pt-5 mb-5">
+        <div class="row g-4 g-lg-5 align-items-start mt-2">
+            
+            <div class="col-lg-6 col-12">
+                <div class="border rounded hov bg-light shadow-sm text-center mb-4 overflow-hidden image-wrap">
+                    <img src="../img/baju3.jpeg" id="gambar-produk" class="img-fluid w-100 object-fit-cover" style="max-height: 600px;" alt="Produk">
+                </div>
+
+                <div class="product-price-section mb-4 text-start">
+                    <div class="d-flex justify-content-between align-items-center mb-1 flex-wrap">
+                        <div class="price-block mb-2 mb-md-0">
+                            <span class="fs-1 fw-bold text-dark me-2">Rp249.000</span>
+                           
+                        </div>
+                        <div class="rating-block text-dark" style="font-size: 1.1rem;">
+                            <i class="fas fa-star text-warning custom-star"></i>
+                            <i class="fas fa-star text-warning custom-star"></i>
+                            <i class="fas fa-star text-warning custom-star"></i>
+                            <i class="fas fa-star text-warning custom-star"></i>
+                            <i class="fas fa-star text-warning custom-star"></i>
+                            <span class="fw-bold ms-1">4.8</span>
+                        </div>
+                    </div>
+                    <div class="promo-text-block mt-2" style="font-size: 15px;">
+                      
+                    </div>
+                </div>
+
+                <div class="size-selector">
+                    <div class="size-label">Ukuran: <span class="text-dark fw-bold" id="teks-ukuran-dipilih">Pria M</span></div>
+                    <div class="size-options">
+                        <div class="size-box">XS</div>
+                        <div class="size-box">S</div>
+                        <div class="size-box active">M</div>
+                        <div class="size-box">L</div>
+                        <div class="size-box">XL</div>
+                        <div class="size-box">XXL</div>
+                        <div class="size-box">3XL</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6 col-12">
+                <div class="mb-4">
+                    <label class="form-label fw-bold mb-2 text-dark">Jumlah: <span class="text-muted fw-normal" style="font-size: 13px;">(Min Order: 1 Pcs)</span></label>
+                    <div class="input-group qty-input-group d-flex align-items-center">
+                        <button class="btn btn-theme px-3 py-2" type="button" id="btn-minus"><i class="fas fa-minus"></i></button>
+                        <input type="text" class="form-control text-center py-2 mx-1" value="1" id="input-qty" readonly>
+                        <button class="btn btn-theme px-3 py-2" type="button" id="btn-plus"><i class="fas fa-plus"></i></button>
+                    </div>
+                </div>
+
+                <div class="table-responsive mb-4">
+                    <table class="table table-bordered price-table m-0">
+                        <tbody>
+                            <tr>
+                                <td class="table-label">Waktu Pengerjaan</td>
+                                <td class="text-center">3 HARI</td>
+                            </tr>
+                            <tr>
+                                <td class="table-label">Harga Barang</td>
+                                <td class="text-center fw-bold text-dark">Rp 249.000</td>
+                            </tr>
+                            <tr>
+                                <td class="table-label">Jumlah</td>
+                                <td class="text-center" id="teks-jumlah-tabel">1</td>
+                            </tr>
+                            <tr class="fw-bold bg-light tabel-total">
+                                <td class="table-label text-dark">Total Harga</td>
+                                <td class="text-center text-dark fs-5" id="teks-total-harga">Rp 249.000</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <button id="btn-add-to-cart" data-price="249000" class="btn btn-theme w-100 py-3 fs-5 fw-bold shadow-sm rounded-1 btn-custom-hov">
+                    <i class="fas fa-shopping-cart me-2"></i> BELI SEKARANG
+                </button>
+            </div>
+        </div>
+
+        <div class="row mt-5">
+            <div class="col-12">
+                <ul class="nav nav-tabs custom-tabs" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="rincian-tab" data-bs-toggle="tab" data-bs-target="#rincian" type="button" role="tab">RINCIAN PRODUK</button>
+                    </li>
+                </ul>
+                <div class="tab-content p-4 border border-top-0 bg-white shadow-sm custom-tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="rincian" role="tabpanel">
+                        <h5 class="fw-bold mb-3" id="nama-produk">T-shirt Maroon</h5>
+                        <p class="text-secondary" style="line-height: 1.8;">
+                            Kaos berkualitas premium dengan bahan katun lembut yang menyerap keringat, dan nyaman digunakan untuk aktivitas sehari-hari.
+                        </p>
+
+                         <div class="detail-info-list">
+                            <div class="info-brg">
+
+                                <span class="info-title"><i class="fa-solid fa-palette"></i> Warna: </span>
+                                <span class="info-des">Maroon Solid (Tidak Mudah Pudar) </span>
+                            </div>
+                            <br>
+                            <div class="info-brg">
+                                <span class="info-title"><i class="fas fa-tshirt"> </i>Material: </span>
+                                <span class="info-des">100% premium combed  cotton  </span>
+                            </div>
+                            <br>
+                            <div class="info-brg">
+                                <span class="info-title"><i class="fas fa-hand-sparkles"> </i>Tekstur: </span>
+                                <span class="info-des">Sangat  lembut di kulit,  (sejuk), dan lentur menyesuaikan gerak tubuh. </span>
+
+                            </div>
+                            <br>
+                            <br>
+                            <div class="info-brg">
+                                <span class="info-title"><b>DETAIL UKURAN:</b></span>
+                                <ul>
+                                    <li>
+                                        S: Chest: 56 cm | Length: 62 cm | Sleeve: 74cm
+                                    </li>
+                                    <li>
+                                        M: Chest: 58 cm | Length: 64 cm | Sleeve: 76cm
+                                    </li>
+                                    <li>
+                                        L: Chest: 60 cm | Length: 66 cm | Sleeve: 78cm
+                                    </li>
+                                     <li>
+                                        XL: Chest: 62 cm | Length: 68 cm | Sleeve: 79cm
+                                    </li>
+
+                                     <li>
+                                        XXL: Chest: 64 cm | Length: 70 cm | Sleeve: 80cm
+                                    </li>
+                                    <li>
+                                        XXXL: Chest: 66 cm | Length: 72 cm | Sleeve: 82cm
+                                    </li>
+                                </ul>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="../tentang.html">Tentang Kami</a>
+                <span>|</span>
+                <a href="../index.html">Product</a>
+                <span>|</span>
+                <a href="../kontak.html">Contact</a>
+                <span>|</span>
+                <a href="../syarat.html">Syarat dan Ketentuan</a>
+                <span>|</span>
+                <a href="../socialmedia.html">Social Media</a>
+            </div>
+
+            <div class="footer-text-block">
+                Hubungi Kami Untuk Layanan Pengaduan Konsumen Naoyann Joy's Indonesia:<br>
+                (001) 80123456789 dan customersupport@Naoyann Joy's.co.id
+            </div>
+            <div class="footer-text-block">
+                Layanan Pengaduan Konsumen, Direktorat Jendral Perlindungan Konsumen dan Tertib Niaga, Kementrian Perdagangan Republik Indonesia:<br>
+                0853 111 1010 (WhatsApp)
+            </div>
+            <div class="footer-text-block">
+                Pelaporan Rekan Bisnis terhadap dugaan pelanggaran oleh karyawan Naoyann Joy's Indonesia: frid.whistleblowing@Naoyann Joy's.co.id
+            </div>
+            <div class="footer-text-block" style="margin-top: 20px;">
+                <a href="#" style="color: #333; text-decoration: none;">Pengaturan Cookie</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
+    
+    <!-- Memanggil file Javascript -->
+    <script src="../script.js"></script>
+
+</body>
+</html>
